@@ -19,12 +19,12 @@ void initensembleA (ensemble *p, int n)
 {
     p->nbrM=0;
     p->nbrC=0;
-    p->tab=(elet *)malloc(n*sizeof(elet))
+    p->tab=(elet *)malloc(n*sizeof(elet));
 }
 void delete ( ensemble *e)
 {
-    elet *e=e->tab;
-    free(e);
+    elet *t=e->tab;
+    free(t);
     e->tab=NULL;
 }
 int appartient ( ensemble e, elet k)
@@ -32,7 +32,7 @@ int appartient ( ensemble e, elet k)
     int i=0;
     while (i<e.nbrC)
     {
-        if (*(e->tab+i)==k)
+        if (*(e.tab+i)==k)
         {
             return 1;
         }
@@ -63,9 +63,9 @@ ensemble inter (ensemble e1,ensemble e2)
     ensemble e3=initensemble(e1.nbrM>e2.nbrM?e1.nbrM:e2.nbrM);
     for (int i=0;i<e3.nbrC;i++)
     {
-        if (!appartient(e2,*(e3.tab+i))&&)
+        if (appartient(e2,*(e3.tab+i))&&appartient(e1,*(e3.tab+i)))
         {
-            
+            add(&e3,e3.tab[i]);
         }
     }
 }
