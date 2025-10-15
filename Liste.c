@@ -176,20 +176,20 @@ int existePos (liste l, int n)
         return 0;
     }
 }
-int adressPostion (liste l, int n)
+liste adressPostion (liste l, int n)
 {
-    while (n>=0 && l!=NULL)
+    while (n>0 && l!=NULL)
     {
         l=l->suiv;
         n--;
     }
     if (n==0)
     {
-        return 1;
+        return l;
     }
     else 
     {
-        return 0;
+        return NULL;
     }
 }
 liste addTete ( liste l,elet k)
@@ -199,6 +199,40 @@ liste addTete ( liste l,elet k)
     p->info=k;
     p->suiv=l;
     return p;
+}
+liste inssertPos ( liste l, elet k, int n)
+{
+    liste prec=adressPostion(l,n-1);
+    liste suivant=adressPostion(l,n);
+    if ( n==0 || l==NULL)
+    {
+        return addTete(l,k);
+    }
+    if (prec==NULL)
+    {
+        printf ("la position est trop grande");
+        return l;
+    }
+    liste p=initliste();
+    p=(liste)malloc(sizeof(struct cellule));
+    p->info=k;
+    p->suiv=suivant;
+    prec->suiv=p;
+    return l;
+}
+liste supTete ( liste l)
+{
+    liste p=l->suiv;
+    free(l);
+    return p;
+}
+void supListe ( liste l)
+{
+    while (l!=NULL)
+    {
+        l=supTete(l);
+    }
+    
 }
 void main ()
 {
