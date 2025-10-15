@@ -4,7 +4,7 @@ typedef int elet ;
 typedef struct 
 {
     int nbr ;
-    elet tab [N];
+    elet tab [N]; 
 } ensemble ;
 ensemble initensemble ()
 {
@@ -16,6 +16,7 @@ ensemble initensemble ()
     }
     return p;
 }
+
 void ajouter (ensemble *p, elet a)
 {
     if (p->nbr<N)
@@ -69,7 +70,7 @@ ensemble sansrep (ensemble p1)
 ensemble unione ( ensemble e1 , ensemble e2)
 {
     ensemble e3=sansrep(e1);
-    for ( int i=0;i<e2.nbr;i++)
+    for ( int i=0;i<e2.nbr-1;i++)
     {
         if (!recherche(e1,e2.tab[i]))
         {
@@ -108,6 +109,24 @@ int rechercheT ( ensemble e,elet k)
     }
     return 0;
 }
+ensemble inter (ensemble e1,ensemble e2)
+{
+    ensemble e3=e1;
+    for (int i=0;i<e3.nbr;i++)
+    {
+        if (!recherche(e2,e3.tab[i]))
+        {
+            for (int j=i;j<e3.nbr-1;j++)
+            {
+                e3.tab[j]=e3.tab[j+1];
+            }
+            i--;
+            e3.nbr--;
+        }
+    }
+    return e3;
+}
+
 void ajouteT ( ensemble *p,elet x)
 {
     int i=0;
@@ -138,7 +157,7 @@ ensemble sansrepT ( ensemble p)
 }
 void main ()
 {
-    ensemble p1,p2,p3;
+    ensemble p1,p2,p3,p4;
     p1=initensemble();
     p2=initensemble();
     ajouter (&p1,1);
@@ -152,4 +171,6 @@ void main ()
     affichage(p1);
     affichage(p2);
     affichage(p3);
+    p4=inter(p1,p2);
+    affichage(p4);
 }
